@@ -1,6 +1,27 @@
 {
-  "name": "socket-chat-example",
+  "name": "chat-app",
   "version": "0.0.1",
   "description": "my first socket.io app",
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garmu/chatApp.git"
+  },
+  "keywords": [
+    "chat",
+    "app"
+  ],
+  "author": "garmu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/garmu/chatApp/issues"
+  },
+  "homepage": "https://github.com/garmu/chatApp#readme"
 }
