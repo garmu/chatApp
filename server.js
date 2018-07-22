@@ -1,3 +1,25 @@
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
+});
+
+
+io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+  });
+});
+
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});
+
+
+/*
+
 const http = require('http');
 const fs = require('fs');
 
@@ -9,8 +31,8 @@ const dbfile = 'chatdb';
 const server = http.createServer((req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Content-Type', 'text/plain');
-	writeDatabase();
-	res.end(readDatabase());
+	res.write(getHTML());
+	res.end();
 });
 
 server.listen(port, hostname, () => {
@@ -18,14 +40,8 @@ server.listen(port, hostname, () => {
 });
 
 function readDatabase() {
-	fs.readFile(dbfile, 'utf8', (err, data) => {
-		if(err) { console.log(err) }
-		else {
-			const obj = JSON.parse(data); //now it an object
-			debugger;
-			return JSON.stringify(obj);
-		}
-	});
+	const obj = JSON.parse(fs.readFileSync(dbfile, 'utf8'));
+	return JSON.stringify(obj);
 }
 
 function writeDatabase() {
@@ -38,3 +54,8 @@ function writeDatabase() {
 
 	fs.writeFile(dbfile, json, 'utf8', (err) => {});
 }
+
+function getHTML() {
+	return "<b>Hello</b><br />This is HTML";
+}
+*/
