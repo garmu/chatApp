@@ -11,11 +11,11 @@ app.get('/', function(req, res){
 
 
 io.on('connection', function(socket){
-    const messages = readDatabaseMessages();
+    const messages = getDatabaseMessages();
     messages.forEach(message => io.to(socket.id).emit('chat message', message.msg));
 
     socket.on('chat message', function(msg) {
-        writeDatabase(socket.client.id, msg, new Date());
+        writeMessageToDatabase(socket.client.id, msg, new Date());
         io.emit('chat message', msg);
     });
 });
@@ -28,12 +28,12 @@ const readDatabase = () => {
     return JSON.parse(fs.readFileSync(dbfile, 'utf8'));
 }
 
-const readDatabaseMessages = () => {
+const getDatabaseMessages = () => {
     const messagesObj = readDatabase();
     return messagesObj.messages;
 }
 
-const writeDatabase = (id, msg, date) => {
+const writeMessageToDatabase = (id, msg, date) => {
     const databaseList = readDatabase();
 	const newMessage = {
 		date : date,
@@ -44,45 +44,3 @@ const writeDatabase = (id, msg, date) => {
 	const json = JSON.stringify(databaseList, null, 4);
 	fs.writeFile(dbfile, json, 'utf8', (err) => {});
 }
-
-/*
-
-const http = require('http');
-const fs = require('fs');
-
-const hostname = '127.0.0.1';
-const port = 3000;
-
-const dbfile = 'chatdb';
-
-const server = http.createServer((req, res) => {
-	res.statusCode = 200;
-	res.setHeader('Content-Type', 'text/plain');
-	res.write(getHTML());
-	res.end();
-});
-
-server.listen(port, hostname, () => {
-	console.log(`Server running at http://${hostname}:${port}/`);
-});
-
-function readDatabase() {
-	const obj = JSON.parse(fs.readFileSync(dbfile, 'utf8'));
-	return JSON.stringify(obj);
-}
-
-function writeDatabase() {
-	const obj = {
-		date : new Date(),
-		msg : "Hello Jordan"
-	};
-
-	const json = JSON.stringify(obj);
-
-	fs.writeFile(dbfile, json, 'utf8', (err) => {});
-}
-
-function getHTML() {
-	return "<b>Hello</b><br />This is HTML";
-}
-*/
