@@ -1,1 +1,19 @@
-{"date":"2018-07-22T01:12:52.604Z","msg":"Hello Jordan"}
+{
+    "messages": [
+        {
+            "date": "2018-07-22T02:22:31.038Z",
+            "msg": "test",
+            "id": "7-rdv5OBiXf95Be-AAAC"
+        },
+        {
+            "date": "2018-07-22T02:22:47.708Z",
+            "msg": "tyler",
+            "id": "eaZqdzTN7sAkd7YZAAAD"
+        },
+        {
+            "date": "2018-07-22T02:22:53.311Z",
+            "msg": "hann",
+            "id": "eaZqdzTN7sAkd7YZAAAD"
+        }
+    ]
+}
