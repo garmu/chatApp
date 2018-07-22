@@ -12,7 +12,7 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
     const messages = readDatabaseMessages();
-    messages.forEach(message => io.emit('init', message.msg));
+    messages.forEach(message => io.to(socket.id).emit('chat message', message.msg));
 
     socket.on('chat message', function(msg) {
         writeDatabase(socket.client.id, msg, new Date());
